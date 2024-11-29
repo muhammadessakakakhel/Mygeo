@@ -306,7 +306,8 @@ const Map = () => {
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/light-v11",
       center: [-86.8307025, 33.5623653],
-      zoom: 5,
+      zoom: 3.3,
+      projection: "mercator",
     });
 
     if (restaurants.length > 0) {
@@ -339,7 +340,7 @@ const Map = () => {
           source: "restaurants",
           paint: {
             "circle-color": "red", // Color of the points
-            "circle-radius": 5, // Radius of the points
+            "circle-radius": 3, // Radius of the points
             "circle-stroke-width": 1,
             "circle-stroke-color": "#fff",
           },
