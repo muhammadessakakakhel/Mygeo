@@ -306,8 +306,9 @@ const Map = () => {
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/light-v11",
       center: [-86.8307025, 33.5623653],
-      zoom: 3.3,
-      projection: "mercator",
+       zoom: 3.5 ,// Lower zoom level to show the entire country
+      projection: "mercator", // Set the map projection to flat
+
     });
 
     if (restaurants.length > 0) {
