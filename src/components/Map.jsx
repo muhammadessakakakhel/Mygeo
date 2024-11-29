@@ -305,8 +305,9 @@ const Map = () => {
     mapInstance.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/light-v11",
-      center: [-86.8307025, 33.5623653],
-       zoom: 3.5 ,// Lower zoom level to show the entire country
+      // center: [-99.60013470916307, 43.13568298318132],
+      center: [-98.91262079904816, 39.057864665205955],
+       zoom: 3.8 ,// Lower zoom level to show the entire country
       projection: "mercator", // Set the map projection to flat
 
     });
@@ -341,7 +342,7 @@ const Map = () => {
           source: "restaurants",
           paint: {
             "circle-color": "red", // Color of the points
-            "circle-radius": 3, // Radius of the points
+            "circle-radius": 1.5, // Radius of the points
             "circle-stroke-width": 1,
             "circle-stroke-color": "#fff",
           },
