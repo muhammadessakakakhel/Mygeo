@@ -388,7 +388,171 @@
 
 
 
-import React, { useContext, useEffect, useRef, useState } from "react";
+// import React, { useContext, useEffect, useRef, useState } from "react";
+// import mapboxgl from "mapbox-gl";
+// import "mapbox-gl/dist/mapbox-gl.css";
+// import styled from "styled-components";
+// import { DataContext } from "../context/DataProvider";
+
+// const StyledContainer = styled.div`
+//   width: 100%;
+//   height: 97vh;
+//   margin: 0;
+//   padding: 0;
+// `;
+
+// const Sidebar = styled.div`
+//   position: absolute;
+//   top: 10px;
+//   left: 10px;
+//   background: white;
+//   z-index: 1;
+//   padding: 10px;
+//   border-radius: 5px;
+//   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+// `;
+
+// const Map = () => {
+//   const { restaurants, chains } = useContext(DataContext); // Using the DataContext
+//   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+//   const mapContainer = useRef(null);
+//   const mapInstance = useRef(null);
+
+//   useEffect(() => {
+//     setFilteredRestaurants(restaurants); // Set all restaurants initially
+//   }, [restaurants]);
+
+ 
+
+//   useEffect(() => {
+//     mapboxgl.accessToken =
+//       "pk.eyJ1IjoibXVoYW1tYWRlc3Nha2FrYWtoZWw5NjYiLCJhIjoiY2x2aHZyeXFtMThmODJpcGUybTU4am92bSJ9.BvyI0TitDCFSTYDcPTLdVA";
+  
+//     // Initialize the map
+//     mapInstance.current = new mapboxgl.Map({
+//       container: mapContainer.current,
+//       style: "mapbox://styles/mapbox/light-v11",
+//       center: [-98.91262079904816, 39.057864665205955],
+//       zoom: 3.8,
+//       projection: "mercator",
+//     });
+  
+//     // Wait for the map's style to fully load
+//     mapInstance.current.on("load", () => {
+//       console.log("Map style has loaded!");
+  
+//       if (filteredRestaurants.length > 0) {
+//         const geojsonData = {
+//           type: "FeatureCollection",
+//           features: filteredRestaurants.map((restaurant) => ({
+//             type: "Feature",
+//             geometry: {
+//               type: "Point",
+//               coordinates: [restaurant.lng, restaurant.lat],
+//             },
+//             properties: {
+//               name: restaurant.name,
+//               address: restaurant.full_address,
+//               category: restaurant.category,
+//               rating: restaurant.score,
+//             },
+//           })),
+//         };
+  
+//         // Add GeoJSON data to the map
+//         mapInstance.current.addSource("restaurants", {
+//           type: "geojson",
+//           data: geojsonData,
+//         });
+  
+//         mapInstance.current.addLayer({
+//           id: "points",
+//           type: "circle",
+//           source: "restaurants",
+//           paint: {
+//             "circle-color": "red",
+//             "circle-radius": 1.5,
+//             "circle-stroke-width": 1,
+//             "circle-stroke-color": "#fff",
+//           },
+//         });
+  
+//         // Add hover and click functionality
+//         mapInstance.current.on("mouseenter", "points", () => {
+//           mapInstance.current.getCanvas().style.cursor = "pointer";
+//         });
+  
+//         mapInstance.current.on("mouseleave", "points", () => {
+//           mapInstance.current.getCanvas().style.cursor = "";
+//         });
+  
+//         mapInstance.current.on("click", "points", (e) => {
+//           const coordinates = e.features[0].geometry.coordinates.slice();
+//           const { name, address, category, rating } = e.features[0].properties;
+  
+//           new mapboxgl.Popup()
+//             .setLngLat(coordinates)
+//             .setHTML(
+//               `<h3>${name}</h3><p><strong>Address:</strong> ${address}</p><p><strong>Category:</strong> ${category}</p><p><strong>Rating:</strong> ${rating}</p>`
+//             )
+//             .addTo(mapInstance.current);
+//         });
+//       }
+//     });
+  
+//     // Cleanup map instance
+//     return () => mapInstance.current.remove();
+//   }, [filteredRestaurants]);
+
+//   const handleFilterChange = (e) => {
+//     const selectedChainWithCount = e.target.value;
+
+//     if (selectedChainWithCount === "All") {
+//       setFilteredRestaurants(restaurants); // Show all restaurants
+//     } else {
+//       // Extract chain name from "Chain (Count)"
+//       const selectedChain = selectedChainWithCount.split(" (")[0];
+
+//       const filtered = restaurants.filter(
+
+//         (restaurant) => restaurant.Chain === selectedChain
+//       );
+//       setFilteredRestaurants(filtered); // Filter by selected chain
+//     }
+//   };
+
+//   return (
+//     <>
+//       <Sidebar>
+//         {/* Text above dropdown */}
+//         <div style={{ marginBottom: "10px", fontWeight: "bold" }}>
+//           <p>Location Universe shows US restaurant</p>
+//           <p>locations by chain</p>
+//         </div>
+//         {/* Dropdown for filtering */}
+//         <label htmlFor="chainFilter">Filter by Chain:</label>
+//         <select id="chainFilter" onChange={handleFilterChange}>
+//           {chains.map((Chain, index) => (
+//             <option key={index} value={Chain}>
+//               {Chain}
+//             </option>
+//           ))}
+//         </select>
+       
+
+//       </Sidebar>
+//       <StyledContainer ref={mapContainer} />
+//     </>
+//   );
+// };
+
+// export default Map;
+
+
+
+
+//////////////////////////////////////
+import React, { useContext, useEffect, useRef, useState, useMemo } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import styled from "styled-components";
@@ -403,24 +567,50 @@ const StyledContainer = styled.div`
 
 const Sidebar = styled.div`
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 0;
+  left: 0;
   background: white;
   z-index: 1;
-  padding: 10px;
-  border-radius: 5px;
+  width: 250px; /* Fixed width for the sidebar */
+  height: 100vh; /* Sidebar height matches the viewport height */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  padding: 15px;
+  border-right: 1px solid #ddd;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+  /* Style for the scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* Thumb color */
+    border-radius: 4px; /* Rounded corners */
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.4); /* Thumb hover color */
+  }
 `;
 
 const Map = () => {
-  const { restaurants, setRestaurants, chains } = useContext(DataContext);
-  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const { restaurants, chains, chainCounts } = useContext(DataContext);
   const mapContainer = useRef(null);
   const mapInstance = useRef(null);
+  const [selectedChains, setSelectedChains] = useState(() =>
+    Object.keys(chainCounts || {})
+  );
 
-  useEffect(() => {
-    setFilteredRestaurants(restaurants); // Set all restaurants initially
-  }, [restaurants]);
+  const getRandomColor = () => {
+    // Generate a random hex color
+    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+  };
+  const chainColors = useMemo(() => {
+    const colors = {};
+    chains.forEach((chain) => {
+      colors[chain] = getRandomColor();
+    });
+    return colors;
+  }, [chains]); // Recalculate only when chains change
+  
 
   useEffect(() => {
     mapboxgl.accessToken =
@@ -431,105 +621,166 @@ const Map = () => {
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/light-v11",
       center: [-98.91262079904816, 39.057864665205955],
-      zoom: 3.8 ,// Lower zoom level to show the entire country
-     projection: "mercator", // Set the map projection to flat
+      zoom: 3.8,
+      projection: "mercator",
+    });
+
+    // Wait for the map's style to fully load
+    mapInstance.current.on("load", () => {
+      console.log("Map style has loaded!");
+
+      updateMap(); // Load points initially based on the selected chains
     });
 
     return () => mapInstance.current.remove();
   }, []);
 
   useEffect(() => {
-    if (mapInstance.current && filteredRestaurants.length > 0) {
-      const geojsonData = {
-        type: "FeatureCollection",
-        features: filteredRestaurants.map((restaurant) => ({
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [restaurant.lng, restaurant.lat],
-          },
-          properties: {
-            name: restaurant.name,
-            address: restaurant.full_address,
-            category: restaurant.category,
-            rating: restaurant.score,
-          },
-        })),
-      };
-
-      // Add or update GeoJSON data
-      if (mapInstance.current.getSource("restaurants")) {
-        mapInstance.current.getSource("restaurants").setData(geojsonData);
-      } else {
-        mapInstance.current.addSource("restaurants", {
-          type: "geojson",
-          data: geojsonData,
-        });
-
-        mapInstance.current.addLayer({
-          id: "points",
-          type: "circle",
-          source: "restaurants",
-          paint: {
-            "circle-color": "red",
-            "circle-radius": 1.5,
-            "circle-stroke-width": 1,
-            "circle-stroke-color": "#fff",
-          },
-        });
-
-         // Add hover effect for points
-         mapInstance.current.on("mouseenter", "points", () => {
-          mapInstance.current.getCanvas().style.cursor = "pointer";
-        });
-
-        // Reset cursor when leaving points
-        mapInstance.current.on("mouseleave", "points", () => {
-          mapInstance.current.getCanvas().style.cursor = "";
-        });
-
-        mapInstance.current.on("click", "points", (e) => {
-          const coordinates = e.features[0].geometry.coordinates.slice();
-          const { name, address, category, rating } = e.features[0].properties;
-
-          new mapboxgl.Popup()
-            .setLngLat(coordinates)
-            .setHTML(
-              `<h3>${name}</h3><p><strong>Address:</strong> ${address}</p><p><strong>Category:</strong> ${category}</p><p><strong>Rating:</strong> ${rating}</p>`
-            )
-            .addTo(mapInstance.current);
-        });
-
-        
-      }
+    if (mapInstance.current) {
+      updateMap(); // Update map when selected chains change
     }
-  }, [filteredRestaurants]);
+  }, [selectedChains]);
 
-  const handleFilterChange = (e) => {
+  const updateMap = () => {
+    if (!mapInstance.current.isStyleLoaded()) {
+      console.error("Map style is not yet loaded. Aborting updateMap.");
+      return;
+    }
+
+    // Remove the existing source and layer if they exist
+    if (mapInstance.current.getLayer("points")) {
+      mapInstance.current.removeLayer("points");
+    }
+    if (mapInstance.current.getSource("restaurants")) {
+      mapInstance.current.removeSource("restaurants");
+    }
+
+    // Filter restaurants for the selected chains
+    console.log("Selected Chains:", selectedChains);
+    const filteredData = restaurants.filter((restaurant) =>
+      selectedChains.includes(restaurant.Chain)
+    );
+    console.log("Filtered Data:", filteredData);
+
+    // Create GeoJSON data
+    const geojsonData = {
+      type: "FeatureCollection",
+      features: filteredData.map((restaurant) => ({
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [restaurant.lng, restaurant.lat],
+        },
+        properties: {
+          name: restaurant.name,
+          address: restaurant.full_address,
+          chain: restaurant.Chain,
+          color: chainColors[restaurant.Chain] || "gray",
+        },
+      })),
+    };
+    console.log("GeoJSON Data:", geojsonData);
+
+    // Add GeoJSON data to the map
+    mapInstance.current.addSource("restaurants", {
+      type: "geojson",
+      data: geojsonData,
+    });
+    console.log("Source added:", mapInstance.current.getSource("restaurants"));
+
+    mapInstance.current.addLayer({
+      id: "points",
+      type: "circle",
+      source: "restaurants",
+      paint: {
+        "circle-color": ["get", "color"],
+        "circle-radius": 1.5,
+        "circle-stroke-width": 1,
+        "circle-stroke-color": "#fff",
+      },
+    });
+    console.log("Layer added:", mapInstance.current.getLayer("points"));
+
+    // Add hover and click functionality
+    mapInstance.current.on("mouseenter", "points", () => {
+      mapInstance.current.getCanvas().style.cursor = "pointer";
+    });
+
+    mapInstance.current.on("mouseleave", "points", () => {
+      mapInstance.current.getCanvas().style.cursor = "";
+    });
+
+    mapInstance.current.on("click", "points", (e) => {
+      const coordinates = e.features[0].geometry.coordinates.slice();
+      const { name, address, chain } = e.features[0].properties;
+
+      new mapboxgl.Popup()
+        .setLngLat(coordinates)
+        .setHTML(
+          `<h3>${name}</h3><p><strong>Address:</strong> ${address}</p><p><strong>Chain:</strong> ${chain}</p>`
+        )
+        .addTo(mapInstance.current);
+    });
+  };
+
+  const handleChainSelection = (e) => {
     const selectedChain = e.target.value;
 
-    if (selectedChain === "All") {
-      setFilteredRestaurants(restaurants); // Show all restaurants
-    } else {
-      const filtered = restaurants.filter(
-        (restaurant) => restaurant.Chain === selectedChain
-      );
-      setFilteredRestaurants(filtered); // Filter by selected chain
-    }
+    setSelectedChains((prevChains) =>
+      prevChains.includes(selectedChain)
+        ? prevChains.filter((chain) => chain !== selectedChain) // Remove if already selected
+        : [...prevChains, selectedChain] // Add if not selected
+    );
   };
+
+  // Sort chains by number of locations
+  const sortedChains = Object.keys(chainCounts || {}).sort(
+    (a, b) => chainCounts[b] - chainCounts[a]
+  );
 
   return (
     <>
       <Sidebar>
-        <label htmlFor="chainFilter">Filter by Chain:</label>
-        <select id="chainFilter" onChange={handleFilterChange}>
-          {chains.map((Chain, index) => (
-            <option key={index} value={Chain}>
-              {Chain}
-            </option>
+        <div style={{ marginBottom: "10px", fontWeight: "bold" }}>
+          <p>Location Universe shows US restaurant</p>
+          <p>locations by chain</p>
+        </div>
+
+        {/* Checkboxes Section */}
+        <div style={{ marginTop: "20px" }}>
+          
+          <div>
+  <input
+    type="checkbox"
+    value="All"
+    onChange={(e) => {
+      if (e.target.checked) {
+        setSelectedChains(Object.keys(chainCounts || {})); // Select all chains
+      } else {
+        setSelectedChains([]); // Deselect all chains
+      }
+    }}
+    checked={selectedChains.length === Object.keys(chainCounts || {}).length}
+  />
+  <label>All ({restaurants.length || 0})</label>
+</div>
+
+          {sortedChains.map((chain) => (
+            <div key={chain}>
+              <input
+                type="checkbox"
+                value={chain}
+                onChange={handleChainSelection}
+                checked={selectedChains.includes(chain)}
+              />
+              <label style={{ color: chainColors[chain] || "gray" }}>
+                {chain} ({chainCounts[chain] || 0})
+              </label>
+            </div>
           ))}
-        </select>
+        </div>
       </Sidebar>
+
       <StyledContainer ref={mapContainer} />
     </>
   );
