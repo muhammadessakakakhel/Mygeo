@@ -573,8 +573,7 @@ const Map = () => {
     "brown",
     "darkcyan",
   ];
-
-  const { restaurants, chainCounts } = useContext(DataContext);
+  const { restaurants, chains, chainCounts } = useContext(DataContext);
   const mapContainer = useRef(null);
   const mapInstance = useRef(null);
   const [selectedChains, setSelectedChains] = useState(["All"]);
@@ -752,7 +751,7 @@ const Map = () => {
             <label> All ({formatNumberWithCommas(restaurants.length || 0)} locations)</label>
           </div>
 
-          {Object.keys(chainCounts).map((chain) => (
+          {chains.map((chain) => (
             <div key={chain}>
               <input
                 type="checkbox"

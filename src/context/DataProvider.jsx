@@ -102,17 +102,20 @@ import React, { createContext, useState, useEffect } from "react";
 import Papa from "papaparse";
 
 export const DataContext = createContext();
+
 const DataProvider = ({ children }) => {
   const [restaurants, setRestaurants] = useState([]);
   const [chains, setChains] = useState([]);
   const [chainCounts, setChainCounts] = useState({});
 
+  // Fetch CSV data and calculate chain counts
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
         const response = await fetch("/30k_Data_Chain.csv");
         const csvData = await response.text();
 
+        // Parse CSV data using PapaParse
         Papa.parse(csvData, {
           header: true,
           skipEmptyLines: true,
@@ -120,19 +123,14 @@ const DataProvider = ({ children }) => {
             const data = result.data;
             setRestaurants(data);
 
+            // Calculate the count for each chain
             const counts = data.reduce((acc, restaurant) => {
               const chain = restaurant.Chain || "Independent";
               acc[chain] = (acc[chain] || 0) + 1;
               return acc;
             }, {});
-            
 
-            setChainCounts(counts); // Save counts in state
-
-            const sortedChains = Object.keys(counts).sort(
-              (a, b) => counts[b] - counts[a]
-            );
-            setChains(sortedChains); // Save sorted chains
+            setChainCounts(counts); // Set chain counts in state
           },
           error: (error) => {
             console.error("Error parsing CSV data:", error);
@@ -145,6 +143,16 @@ const DataProvider = ({ children }) => {
 
     fetchRestaurants();
   }, []);
+
+  // Sort chains in descending order by count
+  useEffect(() => {
+    if (Object.keys(chainCounts).length > 0) {
+      const sortedChains = Object.keys(chainCounts).sort(
+        (a, b) => chainCounts[b] - chainCounts[a] // Sort in descending order by count
+      );
+      setChains(sortedChains); // Save the sorted chains
+    }
+  }, [chainCounts]);
 
   return (
     <DataContext.Provider value={{ restaurants, chains, chainCounts }}>
