@@ -3,7 +3,6 @@
 // import "mapbox-gl/dist/mapbox-gl.css";
 // import styled from "styled-components";
 
-
 // import { MapContext } from "../context/MapContext";
 // import Popup from "./Popup";
 // import PopupContent from "./PopupContent";
@@ -29,7 +28,7 @@
 //   useEffect(() => {
 //     mapboxgl.accessToken =
 //       "pk.eyJ1IjoibXVoYW1tYWRlc3Nha2FrYWtoZWw5NjYiLCJhIjoiY2x2aHZyeXFtMThmODJpcGUybTU4am92bSJ9.BvyI0TitDCFSTYDcPTLdVA";
-  
+
 //     const mapInstance = new mapboxgl.Map({
 //       container: mapContainer.current, // Reference to the map container
 //       style: "mapbox://styles/mapbox/light-v11", // Map style
@@ -37,7 +36,7 @@
 //       zoom: 3.5 ,// Lower zoom level to show the entire country
 //       projection: "mercator", // Set the map projection to flat
 //     });
-  
+
 // // Create a custom dot element for the marker
 // const dotElement = document.createElement('div');
 // dotElement.style.width = '10px';
@@ -61,14 +60,11 @@
 //          <p><strong>Avg Rating:</strong> 4.7</p>
 //        </div>`) // Attach a popup
 //   )
-//   .addTo(mapInstance); 
-  
+//   .addTo(mapInstance);
+
 //     // // Optional: Open the popup by default
 //     // marker.getPopup().addTo(mapInstance);
 //   }, []);
-
-
-
 
 //   return (
 //     <>
@@ -83,13 +79,6 @@
 // };
 
 // export default Map;
-
-
-
-
-
-
-
 
 // data is coming real time from AWS RDS
 
@@ -151,8 +140,7 @@
 
 // export default Map;
 
-
-///////////////////////////////////////////Third trial, shwing in clustring 
+///////////////////////////////////////////Third trial, shwing in clustring
 // import React, { useContext, useEffect, useRef } from "react";
 // import mapboxgl from "mapbox-gl";
 // import "mapbox-gl/dist/mapbox-gl.css";
@@ -276,9 +264,7 @@
 
 // export default Map;
 
-
-
-// /////////////////////////////////////////// working good 
+// /////////////////////////////////////////// working good
 // import React, { useContext, useEffect, useRef } from "react";
 // import mapboxgl from "mapbox-gl";
 // import "mapbox-gl/dist/mapbox-gl.css";
@@ -306,9 +292,9 @@
 //       container: mapContainer.current,
 //       style: "mapbox://styles/mapbox/light-v11",
 //       // center: [-99.60013470916307, 43.13568298318132],
-      // center: [-98.91262079904816, 39.057864665205955],
-      //  zoom: 3.8 ,// Lower zoom level to show the entire country
-      // projection: "mercator", // Set the map projection to flat
+// center: [-98.91262079904816, 39.057864665205955],
+//  zoom: 3.8 ,// Lower zoom level to show the entire country
+// projection: "mercator", // Set the map projection to flat
 
 //     });
 
@@ -380,13 +366,7 @@
 
 // export default Map;
 
-
-
-
-
-///////////////////////////////////////Chain filtering 
-
-
+///////////////////////////////////////Chain filtering
 
 // import React, { useContext, useEffect, useRef, useState } from "react";
 // import mapboxgl from "mapbox-gl";
@@ -422,12 +402,10 @@
 //     setFilteredRestaurants(restaurants); // Set all restaurants initially
 //   }, [restaurants]);
 
- 
-
 //   useEffect(() => {
 //     mapboxgl.accessToken =
 //       "pk.eyJ1IjoibXVoYW1tYWRlc3Nha2FrYWtoZWw5NjYiLCJhIjoiY2x2aHZyeXFtMThmODJpcGUybTU4am92bSJ9.BvyI0TitDCFSTYDcPTLdVA";
-  
+
 //     // Initialize the map
 //     mapInstance.current = new mapboxgl.Map({
 //       container: mapContainer.current,
@@ -436,11 +414,11 @@
 //       zoom: 3.8,
 //       projection: "mercator",
 //     });
-  
+
 //     // Wait for the map's style to fully load
 //     mapInstance.current.on("load", () => {
 //       console.log("Map style has loaded!");
-  
+
 //       if (filteredRestaurants.length > 0) {
 //         const geojsonData = {
 //           type: "FeatureCollection",
@@ -458,13 +436,13 @@
 //             },
 //           })),
 //         };
-  
+
 //         // Add GeoJSON data to the map
 //         mapInstance.current.addSource("restaurants", {
 //           type: "geojson",
 //           data: geojsonData,
 //         });
-  
+
 //         mapInstance.current.addLayer({
 //           id: "points",
 //           type: "circle",
@@ -476,20 +454,20 @@
 //             "circle-stroke-color": "#fff",
 //           },
 //         });
-  
+
 //         // Add hover and click functionality
 //         mapInstance.current.on("mouseenter", "points", () => {
 //           mapInstance.current.getCanvas().style.cursor = "pointer";
 //         });
-  
+
 //         mapInstance.current.on("mouseleave", "points", () => {
 //           mapInstance.current.getCanvas().style.cursor = "";
 //         });
-  
+
 //         mapInstance.current.on("click", "points", (e) => {
 //           const coordinates = e.features[0].geometry.coordinates.slice();
 //           const { name, address, category, rating } = e.features[0].properties;
-  
+
 //           new mapboxgl.Popup()
 //             .setLngLat(coordinates)
 //             .setHTML(
@@ -499,7 +477,7 @@
 //         });
 //       }
 //     });
-  
+
 //     // Cleanup map instance
 //     return () => mapInstance.current.remove();
 //   }, [filteredRestaurants]);
@@ -538,7 +516,6 @@
 //             </option>
 //           ))}
 //         </select>
-       
 
 //       </Sidebar>
 //       <StyledContainer ref={mapContainer} />
@@ -547,9 +524,6 @@
 // };
 
 // export default Map;
-
-
-
 
 //////////////////////////////////////
 import React, { useContext, useEffect, useRef, useState, useMemo } from "react";
@@ -590,33 +564,39 @@ const Sidebar = styled.div`
     background-color: rgba(0, 0, 0, 0.4); /* Thumb hover color */
   }
 `;
-
 const Map = () => {
-  const { restaurants, chains, chainCounts } = useContext(DataContext);
+  const predefinedColors = [
+    "blue",
+    "pink",
+    "purple",
+    "orange",
+    "brown",
+    "darkcyan",
+  ];
+
+  const { restaurants, chainCounts } = useContext(DataContext);
   const mapContainer = useRef(null);
   const mapInstance = useRef(null);
-  const [selectedChains, setSelectedChains] = useState(() =>
-    Object.keys(chainCounts || {})
-  );
+  const [selectedChains, setSelectedChains] = useState(["All"]);
+  const [ready, setReady] = useState(false);
 
-  const getRandomColor = () => {
-    // Generate a random hex color
-    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-  };
-  const chainColors = useMemo(() => {
-    const colors = {};
-    chains.forEach((chain) => {
-      colors[chain] = getRandomColor();
+  // Create chainColorMap to assign colors to different chains
+  const chainColorMap = useMemo(() => {
+    const colors = { All: "red" }; // Explicitly set "All" to red
+    const sortedChains = Object.keys(chainCounts || {}).sort(
+      (a, b) => chainCounts[b] - chainCounts[a]
+    );
+    sortedChains.forEach((chain, index) => {
+      colors[chain] = predefinedColors[index % predefinedColors.length];
     });
     return colors;
-  }, [chains]); // Recalculate only when chains change
-  
+  }, [chainCounts]);
 
+  // Initialize the map
   useEffect(() => {
     mapboxgl.accessToken =
       "pk.eyJ1IjoibXVoYW1tYWRlc3Nha2FrYWtoZWw5NjYiLCJhIjoiY2x2aHZyeXFtMThmODJpcGUybTU4am92bSJ9.BvyI0TitDCFSTYDcPTLdVA";
 
-    // Initialize the map
     mapInstance.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/light-v11",
@@ -625,29 +605,29 @@ const Map = () => {
       projection: "mercator",
     });
 
-    // Wait for the map's style to fully load
+    // Set the map to ready state once it has loaded
     mapInstance.current.on("load", () => {
       console.log("Map style has loaded!");
-
-      updateMap(); // Load points initially based on the selected chains
+      setReady(true); // Set ready state to true after map has loaded
     });
 
     return () => mapInstance.current.remove();
   }, []);
 
+  // Update map only when `ready` is true and `chainColorMap` is ready
   useEffect(() => {
-    if (mapInstance.current) {
-      updateMap(); // Update map when selected chains change
+    if (ready && mapInstance.current && chainColorMap) {
+      updateMap();
     }
-  }, [selectedChains]);
+  }, [selectedChains, ready, chainColorMap]);
 
+  // Update map based on the selected chains and chainColorMap
   const updateMap = () => {
     if (!mapInstance.current.isStyleLoaded()) {
       console.error("Map style is not yet loaded. Aborting updateMap.");
       return;
     }
 
-    // Remove the existing source and layer if they exist
     if (mapInstance.current.getLayer("points")) {
       mapInstance.current.removeLayer("points");
     }
@@ -655,14 +635,11 @@ const Map = () => {
       mapInstance.current.removeSource("restaurants");
     }
 
-    // Filter restaurants for the selected chains
-    console.log("Selected Chains:", selectedChains);
-    const filteredData = restaurants.filter((restaurant) =>
-      selectedChains.includes(restaurant.Chain)
-    );
-    console.log("Filtered Data:", filteredData);
+    const filteredData = restaurants.filter((restaurant) => {
+      if (selectedChains.includes("All")) return true; // Show all data points
+      return selectedChains.includes(restaurant.Chain);
+    });
 
-    // Create GeoJSON data
     const geojsonData = {
       type: "FeatureCollection",
       features: filteredData.map((restaurant) => ({
@@ -675,18 +652,15 @@ const Map = () => {
           name: restaurant.name,
           address: restaurant.full_address,
           chain: restaurant.Chain,
-          color: chainColors[restaurant.Chain] || "gray",
+          color: chainColorMap[selectedChains.includes("All") ? "All" : restaurant.Chain],
         },
       })),
     };
-    console.log("GeoJSON Data:", geojsonData);
 
-    // Add GeoJSON data to the map
     mapInstance.current.addSource("restaurants", {
       type: "geojson",
       data: geojsonData,
     });
-    console.log("Source added:", mapInstance.current.getSource("restaurants"));
 
     mapInstance.current.addLayer({
       id: "points",
@@ -694,7 +668,19 @@ const Map = () => {
       source: "restaurants",
       paint: {
         "circle-color": ["get", "color"],
-        "circle-radius": 1.5,
+        "circle-radius": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          3,
+          1.5,
+          8,
+          5,
+          12,
+          10,
+          16,
+          20,
+        ],
         "circle-stroke-width": 1,
         "circle-stroke-color": "#fff",
       },
@@ -726,46 +712,47 @@ const Map = () => {
   const handleChainSelection = (e) => {
     const selectedChain = e.target.value;
 
-    setSelectedChains((prevChains) =>
-      prevChains.includes(selectedChain)
-        ? prevChains.filter((chain) => chain !== selectedChain) // Remove if already selected
-        : [...prevChains, selectedChain] // Add if not selected
-    );
+    setSelectedChains((prevChains) => {
+      if (selectedChain !== "All" && prevChains.includes("All")) {
+        return [selectedChain];
+      }
+
+      return prevChains.includes(selectedChain)
+        ? prevChains.filter((chain) => chain !== selectedChain)
+        : [...prevChains, selectedChain];
+    });
   };
 
-  // Sort chains by number of locations
-  const sortedChains = Object.keys(chainCounts || {}).sort(
-    (a, b) => chainCounts[b] - chainCounts[a]
-  );
+  const formatNumberWithCommas = (num) => {
+    return new Intl.NumberFormat().format(num);
+  };
 
   return (
     <>
       <Sidebar>
         <div style={{ marginBottom: "10px", fontWeight: "bold" }}>
-          <p>Location Universe shows US restaurant</p>
-          <p>locations by chain</p>
+          <p>Location Universe shows US restaurant locations by chain</p>
         </div>
 
         {/* Checkboxes Section */}
         <div style={{ marginTop: "20px" }}>
-          
           <div>
-  <input
-    type="checkbox"
-    value="All"
-    onChange={(e) => {
-      if (e.target.checked) {
-        setSelectedChains(Object.keys(chainCounts || {})); // Select all chains
-      } else {
-        setSelectedChains([]); // Deselect all chains
-      }
-    }}
-    checked={selectedChains.length === Object.keys(chainCounts || {}).length}
-  />
-  <label>All ({restaurants.length || 0})</label>
-</div>
+            <input
+              type="checkbox"
+              value="All"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setSelectedChains(["All"]); // Select "All" only
+                } else {
+                  setSelectedChains([]); // Deselect all chains
+                }
+              }}
+              checked={selectedChains.includes("All")}
+            />
+            <label> All ({formatNumberWithCommas(restaurants.length || 0)} locations)</label>
+          </div>
 
-          {sortedChains.map((chain) => (
+          {Object.keys(chainCounts).map((chain) => (
             <div key={chain}>
               <input
                 type="checkbox"
@@ -773,8 +760,8 @@ const Map = () => {
                 onChange={handleChainSelection}
                 checked={selectedChains.includes(chain)}
               />
-              <label style={{ color: chainColors[chain] || "gray" }}>
-                {chain} ({chainCounts[chain] || 0})
+              <label style={{ color: "black" }}>
+                {chain} ({formatNumberWithCommas(chainCounts[chain] || 0)} locations)
               </label>
             </div>
           ))}
@@ -787,5 +774,3 @@ const Map = () => {
 };
 
 export default Map;
-
-
