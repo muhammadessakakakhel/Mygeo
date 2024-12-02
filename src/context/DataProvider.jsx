@@ -112,7 +112,7 @@ const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const response = await fetch("/30k_Data_Chain.csv");
+        const response = await fetch("/45k_Data_Chain.csv");
         const csvData = await response.text();
 
         // Parse CSV data using PapaParse
