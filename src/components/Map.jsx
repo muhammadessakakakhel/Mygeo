@@ -567,7 +567,7 @@ const Sidebar = styled.div`
 const Map = () => {
   const predefinedColors = [
     "blue",
-    "pink",
+    "red",
     "purple",
     "orange",
     "brown",
