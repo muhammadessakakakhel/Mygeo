@@ -651,6 +651,8 @@ const Map = () => {
           name: restaurant.name,
           address: restaurant.full_address,
           chain: restaurant.Chain,
+          category: restaurant.category,
+          rating: restaurant.ratings,
           color: chainColorMap[selectedChains.includes("All") ? "All" : restaurant.Chain],
         },
       })),
@@ -672,10 +674,10 @@ const Map = () => {
           ["linear"],
           ["zoom"],
           3,
+          1.2,
+          5,
           1.5,
           8,
-          5,
-          12,
           10,
           16,
           20,
@@ -697,12 +699,12 @@ const Map = () => {
 
     mapInstance.current.on("click", "points", (e) => {
       const coordinates = e.features[0].geometry.coordinates.slice();
-      const { name, address, chain } = e.features[0].properties;
+      const { name, address, category,rating } = e.features[0].properties;
 
       new mapboxgl.Popup()
         .setLngLat(coordinates)
         .setHTML(
-          `<h3>${name}</h3><p><strong>Address:</strong> ${address}</p><p><strong>Chain:</strong> ${chain}</p>`
+          `<h3>${name}</h3><p><strong>Address:</strong> ${address}</p><p><strong>Category:</strong> ${category}</p><p><strong>Rating:</strong> ${rating}</p>`
         )
         .addTo(mapInstance.current);
     });
