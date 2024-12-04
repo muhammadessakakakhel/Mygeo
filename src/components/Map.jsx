@@ -541,68 +541,74 @@ const StyledContainer = styled.div`
 
 const Sidebar = styled.div`
   position: absolute;
-  top: 0px;
+  top: 0;
   left: 0;
-  background: linear-gradient(to bottom, #ffffff, #f5f5f5); /* Gradient background */
-  z-index: 10; /* Ensure it appears above other elements */
-  width: 280px; /* Slightly wider for modern design */
-  height: 70vh; /* Full height for a polished layout */
-  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  background: linear-gradient(to bottom, #ffffff, #f5f5f5);
+  z-index: 10;
+  width: 280px;
+  height: 80vh;
   padding: 20px;
   border-right: 1px solid #e0e0e0;
-  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 
-  /* Rounded corners for a sleek look */
-  border-radius: 10px 10px 10px 10px;
+  /* To ensure the scrollbar respects rounded corners */
+  overflow: hidden; /* Prevents the scrollbar from breaking the rounded corners */
 
-/* Style for the scrollbar */
-::-webkit-scrollbar {
-  width: 4px; /* Slimmer scrollbar */
-}
+  /* Create an inner wrapper for scrolling */
+  .scrollable-content {
+    height: 100%;
+    overflow-y: auto; /* Enable scrolling inside the wrapper */
+    padding-right: 10px; /* Avoid content overlapping the scrollbar */
+    box-sizing: content-box;
+  }
 
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #cccccc, #888888); /* Gradient for a modern look */
-  border-radius: 10px; /* Smooth rounded corners */
-  border: 1px solid transparent; /* Slim border for spacing */
-  background-clip: padding-box; /* Prevent border overlap */
-}
+  /* Slim and aesthetic scrollbar */
+  .scrollable-content::-webkit-scrollbar {
+    width: 6px;
+  }
 
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #aaaaaa, #666666); /* Slightly darker on hover */
-}
+  .scrollable-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #cccccc, #888888);
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
 
-::-webkit-scrollbar-track {
-  background: #f5f5f5; /* Matches sidebar background */
-  border-radius: 10px; /* Rounded corners for the track */
-  margin: 4px 0; /* Vertical spacing for aesthetics */
-  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-}
+  .scrollable-content::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #aaaaaa, #666666);
+  }
 
+  .scrollable-content::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 10px;
+    margin: 4px 0;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
+  }
 
-  /* Add hover effect for sidebar */
   &:hover {
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15); /* Add more shadow on hover */
-    transform: scale(1.01); /* Slightly enlarge for interactivity */
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+    transform: scale(1.01);
     transition: all 0.2s ease-in-out;
   }
 
-  /* Typography improvements */
-  font-family: 'Roboto', sans-serif; /* Clean, modern font */
-  font-size: 16px; /* Standardized font size */
-  line-height: 1.6; /* Improve text spacing */
-  color: #333; /* Professional text color */
-  
-  /* Optional styling for links */
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+
   a {
     text-decoration: none;
-    color: #007bff; /* Subtle blue for links */
+    color: #007bff;
     font-weight: 500;
     transition: color 0.2s ease-in-out;
   }
+
   a:hover {
-    color: #0056b3; /* Darker blue on hover */
+    color: #0056b3;
   }
 `;
+
 
 const Map = () => {
   const predefinedColors = [
@@ -771,6 +777,9 @@ const Map = () => {
   return (
     <>
       <Sidebar>
+      <div className="scrollable-content">
+    {/* Your scrollable content goes here */}
+ 
         <div style={{ marginBottom: "10px", fontWeight: "normal" }}>
           <p>Location Universe shows restaurant locations across the US. View all by region, or select and compare by chain/independents (number of locations shown in brackets). For more information, get in touch at <a href="mailto:hello@omnimeta.ai">hello@omnimeta.ai</a>.</p>
         </div>
@@ -806,6 +815,7 @@ const Map = () => {
               </label>
             </div>
           ))}
+        </div>
         </div>
       </Sidebar>
 
