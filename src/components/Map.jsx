@@ -541,12 +541,12 @@ const StyledContainer = styled.div`
 
 const Sidebar = styled.div`
   position: absolute;
-  top: 0;
+  top: 0px;
   left: 0;
   background: linear-gradient(to bottom, #ffffff, #f5f5f5); /* Gradient background */
   z-index: 10; /* Ensure it appears above other elements */
   width: 280px; /* Slightly wider for modern design */
-  height: 50vh; /* Full height for a polished layout */
+  height: 70vh; /* Full height for a polished layout */
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
   padding: 20px;
   border-right: 1px solid #e0e0e0;
@@ -555,18 +555,29 @@ const Sidebar = styled.div`
   /* Rounded corners for a sleek look */
   border-radius: 10px 10px 10px 10px;
 
-  /* Style for the scrollbar */
-  ::-webkit-scrollbar {
-    width: 10px; /* Wider scrollbar for better usability */
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: rgba(100, 100, 100, 0.3); /* Neutral thumb color */
-    border-radius: 5px; /* Rounded corners */
-    border: 2px solid #f5f5f5; /* Gives a recessed effect */
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(100, 100, 100, 0.5); /* Thumb hover color */
-  }
+/* Style for the scrollbar */
+::-webkit-scrollbar {
+  width: 4px; /* Slimmer scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #cccccc, #888888); /* Gradient for a modern look */
+  border-radius: 10px; /* Smooth rounded corners */
+  border: 1px solid transparent; /* Slim border for spacing */
+  background-clip: padding-box; /* Prevent border overlap */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #aaaaaa, #666666); /* Slightly darker on hover */
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f5f5; /* Matches sidebar background */
+  border-radius: 10px; /* Rounded corners for the track */
+  margin: 4px 0; /* Vertical spacing for aesthetics */
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
 
   /* Add hover effect for sidebar */
   &:hover {
@@ -707,9 +718,9 @@ const Map = () => {
           5,
           1.5,
           8,
-          10,
+          2.5,
           16,
-          20,
+          3,
         ],
         "circle-stroke-width": 1,
         "circle-stroke-color": "#fff",
@@ -760,8 +771,8 @@ const Map = () => {
   return (
     <>
       <Sidebar>
-        <div style={{ marginBottom: "10px", fontWeight: "bold" }}>
-          <p>Location Universe shows US restaurant locations by chain</p>
+        <div style={{ marginBottom: "10px", fontWeight: "normal" }}>
+          <p>Location Universe shows restaurant locations across the US. View all by region, or select and compare by chain/independents (number of locations shown in brackets). For more information, get in touch at <a href="mailto:hello@omnimeta.ai">hello@omnimeta.ai</a>.</p>
         </div>
 
         {/* Checkboxes Section */}
@@ -779,7 +790,7 @@ const Map = () => {
               }}
               checked={selectedChains.includes("All")}
             />
-            <label> All ({formatNumberWithCommas(restaurants.length || 0)} locations)</label>
+            <label style={{ color: "black" ,fontSize: "80%" }}> All ({formatNumberWithCommas(restaurants.length || 0)})</label>
           </div>
 
           {chains.map((chain) => (
@@ -790,8 +801,8 @@ const Map = () => {
                 onChange={handleChainSelection}
                 checked={selectedChains.includes(chain)}
               />
-              <label style={{ color: "black" }}>
-                {chain} ({formatNumberWithCommas(chainCounts[chain] || 0)} locations)
+              <label style={{ color: "black" ,fontSize: "80%" }}>
+                {chain} ({formatNumberWithCommas(chainCounts[chain] || 0)})
               </label>
             </div>
           ))}
