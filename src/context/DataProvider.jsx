@@ -112,7 +112,8 @@ const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const response = await fetch("/Final_Data_But_need_changes.csv");
+        const response = await 
+        fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRrof1_lXtJCMsj5c44t3wZPOOZD13zLYJwnOXIIi2Cjv7S3Xd8Vi5hWNqCNeXflpzcsNWYxi9WANz3/pub?gid=1502340758&single=true&output=csv");
         const csvData = await response.text();
 
         // Parse CSV data using PapaParse

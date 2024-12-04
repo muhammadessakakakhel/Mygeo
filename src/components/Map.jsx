@@ -543,27 +543,56 @@ const Sidebar = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  background: white;
-  z-index: 1;
-  width: 250px; /* Fixed width for the sidebar */
-  height: 100vh; /* Sidebar height matches the viewport height */
+  background: linear-gradient(to bottom, #ffffff, #f5f5f5); /* Gradient background */
+  z-index: 10; /* Ensure it appears above other elements */
+  width: 280px; /* Slightly wider for modern design */
+  height: 50vh; /* Full height for a polished layout */
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
-  padding: 15px;
-  border-right: 1px solid #ddd;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+
+  /* Rounded corners for a sleek look */
+  border-radius: 10px 10px 10px 10px;
 
   /* Style for the scrollbar */
   ::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
+    width: 10px; /* Wider scrollbar for better usability */
   }
   ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2); /* Thumb color */
-    border-radius: 4px; /* Rounded corners */
+    background-color: rgba(100, 100, 100, 0.3); /* Neutral thumb color */
+    border-radius: 5px; /* Rounded corners */
+    border: 2px solid #f5f5f5; /* Gives a recessed effect */
   }
   ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(0, 0, 0, 0.4); /* Thumb hover color */
+    background-color: rgba(100, 100, 100, 0.5); /* Thumb hover color */
+  }
+
+  /* Add hover effect for sidebar */
+  &:hover {
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15); /* Add more shadow on hover */
+    transform: scale(1.01); /* Slightly enlarge for interactivity */
+    transition: all 0.2s ease-in-out;
+  }
+
+  /* Typography improvements */
+  font-family: 'Roboto', sans-serif; /* Clean, modern font */
+  font-size: 16px; /* Standardized font size */
+  line-height: 1.6; /* Improve text spacing */
+  color: #333; /* Professional text color */
+  
+  /* Optional styling for links */
+  a {
+    text-decoration: none;
+    color: #007bff; /* Subtle blue for links */
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+  }
+  a:hover {
+    color: #0056b3; /* Darker blue on hover */
   }
 `;
+
 const Map = () => {
   const predefinedColors = [
     "blue",
@@ -600,7 +629,7 @@ const Map = () => {
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/light-v11",
       center: [-98.91262079904816, 39.057864665205955],
-      zoom: 3.8,
+      zoom: 3,
       projection: "mercator",
     });
 
