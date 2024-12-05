@@ -546,7 +546,7 @@ const Sidebar = styled.div`
   background: linear-gradient(to bottom, #ffffff, #f5f5f5);
   z-index: 10;
   width: 280px;
-  height: 80vh;
+  height: 50vh;
   padding: 20px;
   border-right: 1px solid #e0e0e0;
   box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
