@@ -113,7 +113,7 @@ const DataProvider = ({ children }) => {
     const fetchRestaurants = async () => {
       try {
         const response = await 
-        fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRrof1_lXtJCMsj5c44t3wZPOOZD13zLYJwnOXIIi2Cjv7S3Xd8Vi5hWNqCNeXflpzcsNWYxi9WANz3/pub?gid=1502340758&single=true&output=csv");
+        fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQuDJUIkQjdEyK9ZC-Pf60OWHg6XJOhZKM8qQt7y_b8tfqzCyJbV8GSB0rghs4RY-sqI9nGX54KTcEL/pub?gid=1505305050&single=true&output=csv");
         const csvData = await response.text();
 
         // Parse CSV data using PapaParse

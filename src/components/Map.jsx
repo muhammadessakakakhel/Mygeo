@@ -780,9 +780,12 @@ const Map = () => {
       <div className="scrollable-content">
     {/* Your scrollable content goes here */}
  
-        <div style={{ marginBottom: "10px", fontWeight: "normal" }}>
-          <p>Location Universe shows restaurant locations across the US. View all by region, or select and compare by chain/independents (number of locations shown in brackets). For more information, get in touch at <a href="mailto:hello@omnimeta.ai">hello@omnimeta.ai</a>.</p>
-        </div>
+    <div style={{ marginBottom: "10px", fontWeight: "normal", color: "grey" }}>
+  <p style={{ margin: 0 }}>Location Universe shows restaurant locations across the US.</p>
+  <p style={{ margin: 0 }}>View all by region, or select and compare by chain/independents (number of locations shown in brackets).</p>
+  <p style={{ margin: 0 }}>For more information, get in touch at <a href="mailto:hello@omnimeta.ai">hello@omnimeta.ai</a></p>
+</div>
+
 
         {/* Checkboxes Section */}
         <div style={{ marginTop: "20px" }}>
@@ -799,7 +802,7 @@ const Map = () => {
               }}
               checked={selectedChains.includes("All")}
             />
-            <label style={{ color: "black" ,fontSize: "80%" }}> All ({formatNumberWithCommas(restaurants.length || 0)})</label>
+            <label style={{ color: "grey" ,fontSize: "80%" }}> All ({formatNumberWithCommas(restaurants.length || 0)})</label>
           </div>
 
           {chains.map((chain) => (
@@ -810,7 +813,7 @@ const Map = () => {
                 onChange={handleChainSelection}
                 checked={selectedChains.includes(chain)}
               />
-              <label style={{ color: "black" ,fontSize: "80%" }}>
+              <label style={{ color: "grey" ,fontSize: "80%" }}>
                 {chain} ({formatNumberWithCommas(chainCounts[chain] || 0)})
               </label>
             </div>
